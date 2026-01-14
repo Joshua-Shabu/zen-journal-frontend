@@ -1,0 +1,55 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Noto+Sans+JP:wght@300;400;500&family=Noto+Serif+JP:wght@300;400&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  * {
+    @apply border-zen-stone;
+  }
+  
+  body {
+    @apply bg-zen-white text-zen-ink font-sans antialiased;
+    font-feature-settings: 'rlig' 1, 'calt' 1;
+    line-height: 1.75;
+  }
+  
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+/* Toast animations */
+@keyframes slide-in {
+  from {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+.animate-slide-in {
+  animation: slide-in 0.3s ease-out;
+}
+
+@layer components {
+  .zen-input {
+    @apply bg-zen-white border-0 border-b border-zen-stone px-0 py-3 text-zen-ink placeholder-zen-charcoal focus:border-zen-accent focus:outline-none transition-all duration-300;
+  }
+  
+  .zen-button {
+    @apply bg-zen-ink text-zen-white px-6 py-3 font-medium tracking-wide hover:bg-zen-charcoal transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-zen-accent focus:ring-offset-2;
+  }
+  
+  .zen-card {
+    @apply bg-zen-white shadow-zen border border-zen-stone rounded-xl;
+  }
+  
+  .zen-heading {
+    @apply font-serif text-zen-ink font-light tracking-wide;
+  }
+}
