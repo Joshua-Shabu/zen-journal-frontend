@@ -36,7 +36,6 @@ function EntryView({ entry }) {
               >
                 <img 
                   src={`${API_BASE_URL}${image.imageUrl}`}
-                  alt="Entry image"
                   className="w-full h-full object-cover rounded shadow-md"
                 />
               </div>

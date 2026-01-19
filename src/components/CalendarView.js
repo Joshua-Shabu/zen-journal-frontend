@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import axios from 'axios';
 import API_BASE_URL from '../config/api';
 
@@ -8,9 +8,9 @@ function CalendarView({ token, onEntryClick }) {
 
   useEffect(() => {
     fetchEntries();
-  }, [token]);
+  }, [token, fetchEntries]);
 
-  const fetchEntries = async () => {
+  const fetchEntries = useCallback(async () => {
     try {
       const res = await axios.get(`${API_BASE_URL}/entries`, {
         headers: { Authorization: `Bearer ${token}` }
@@ -19,7 +19,7 @@ function CalendarView({ token, onEntryClick }) {
     } catch (err) {
       console.error('Failed to fetch entries:', err);
     }
-  };
+  }, [token]);
 
   const getDaysInMonth = (date) => {
     return new Date(date.getFullYear(), date.getMonth() + 1, 0).getDate();
@@ -42,16 +42,16 @@ function CalendarView({ token, onEntryClick }) {
   };
 
   const isToday = (day) => {
-    const today = new Date();
-    return day === today.getDate() && 
-           currentDate.getMonth() === today.getMonth() && 
-           currentDate.getFullYear() === today.getFullYear();
+    const now = new Date();
+    return day === now.getDate() && 
+           currentDate.getMonth() === now.getMonth() && 
+           currentDate.getFullYear() === now.getFullYear();
   };
 
   const isCurrentDate = (day) => {
-    const today = new Date();
+    const now = new Date();
     const currentDateObj = new Date(currentDate.getFullYear(), currentDate.getMonth(), day);
-    const todayObj = new Date(today.getFullYear(), today.getMonth(), today.getDate());
+    const todayObj = new Date(now.getFullYear(), now.getMonth(), now.getDate());
     return currentDateObj.getTime() === todayObj.getTime();
   };
 

@@ -2,14 +2,12 @@ import React, { useState } from 'react';
 import AuthTabs from './components/AuthTabs';
 import WelcomeView from './components/WelcomeView';
 import JournalEntryForm from './components/JournalEntryForm';
-import JournalList from './components/JournalList';
 import CalendarView from './components/CalendarView';
 import EntryView from './components/EntryView';
 import ToastContainer from './components/ToastContainer';
 
 function App() {
   const [token, setToken] = useState(localStorage.getItem('token'));
-  const [refreshKey, setRefreshKey] = useState(0);
   const [currentView, setCurrentView] = useState('welcome'); // 'welcome', 'write', 'calendar', 'entry', or 'auth'
   const [showMenu, setShowMenu] = useState(false);
   const [userEmail, setUserEmail] = useState('');
@@ -25,14 +23,6 @@ function App() {
   const removeToast = (id) => {
     console.log('Removing toast:', id);
     setToasts(prev => prev.filter(toast => toast.id !== id));
-  };
-
-  const handleEntryAdded = () => {
-    setRefreshKey(prev => prev + 1);
-  };
-
-  const toggleMenu = () => {
-    setShowMenu(!showMenu);
   };
 
   const handleLogout = () => {

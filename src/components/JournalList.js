@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import axios from 'axios';
 import API_BASE_URL from '../config/api';
 
@@ -9,9 +9,9 @@ function JournalList({ token }) {
 
   useEffect(() => {
     fetchEntries();
-  }, [token]);
+  }, [fetchEntries]);
 
-  const fetchEntries = async () => {
+  const fetchEntries = useCallback(async () => {
     console.log('Fetching entries with token:', token); // Debug log
     try {
       const res = await axios.get(`${API_BASE_URL}/entries`, {
@@ -21,7 +21,7 @@ function JournalList({ token }) {
     } catch (err) {
       console.error('Failed to fetch entries:', err);
     }
-  };
+  }, [token]);
 
   const deleteEntry = async (id) => {
     try {
@@ -79,7 +79,6 @@ function JournalList({ token }) {
                       >
                         <img 
                           src={`${API_BASE_URL}${image.imageUrl}`}
-                          alt="Entry image"
                           className="w-full h-full object-cover rounded shadow-md"
                         />
                       </div>
