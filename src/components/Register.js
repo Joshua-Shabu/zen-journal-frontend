@@ -34,11 +34,11 @@ function Register({ setToken, onShowToast }) {
       return;
     }
     try {
-      await axios.post('http://localhost:5000/auth/register', { email, password });
+      await axios.post('http://localhost:5000/auth/request-otp', { email });
       setShowOtpInput(true);
       onShowToast('Registration email sent! Please check your inbox.', 'info');
     } catch (err) {
-      onShowToast('Registration failed. Please try again.', 'error');
+      onShowToast('Registration failed: ' + (err.response?.data?.error || 'Please try again.'), 'error');
     }
   };
 

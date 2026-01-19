@@ -22,6 +22,7 @@ function JournalEntryForm({ token, onEntryAdded, onShowToast }) {
     
     const formData = new FormData();
     formData.append('title', title);
+    formData.append('name', 'User'); // Add name field as expected by backend
     formData.append('text', text);
     formData.append('fontFamily', fontFamily);
     formData.append('fontSize', fontSize);
@@ -32,7 +33,7 @@ function JournalEntryForm({ token, onEntryAdded, onShowToast }) {
     // Add all images
     images.forEach((image, index) => {
       if (image.file) {
-        formData.append(`image${index}`, image.file);
+        formData.append('images', image.file); // Use 'images' instead of 'image${index}'
       }
       formData.append(`imageData${index}`, JSON.stringify({
         id: image.id,
