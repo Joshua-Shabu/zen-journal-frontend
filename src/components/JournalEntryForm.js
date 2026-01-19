@@ -1,5 +1,6 @@
 import React, { useState, useRef } from 'react';
 import axios from 'axios';
+import API_BASE_URL from '../config/api';
 
 function JournalEntryForm({ token, onEntryAdded, onShowToast }) {
   const [title, setTitle] = useState('');
@@ -45,7 +46,7 @@ function JournalEntryForm({ token, onEntryAdded, onShowToast }) {
     });
     
     try {
-      await axios.post('http://localhost:5000/entries', formData, {
+      await axios.post(`${API_BASE_URL}/entries`, formData, {
         headers: { 
           Authorization: `Bearer ${token}`,
           'Content-Type': 'multipart/form-data'

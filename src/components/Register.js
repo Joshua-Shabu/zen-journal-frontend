@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import API_BASE_URL from '../config/api';
 
 function Register({ setToken, onShowToast }) {
   const [email, setEmail] = useState('');
@@ -34,7 +35,7 @@ function Register({ setToken, onShowToast }) {
       return;
     }
     try {
-      await axios.post('http://localhost:5000/auth/request-otp', { email });
+      await axios.post(`${API_BASE_URL}/auth/request-otp`, { email });
       setShowOtpInput(true);
       onShowToast('Registration email sent! Please check your inbox.', 'info');
     } catch (err) {
@@ -49,7 +50,7 @@ function Register({ setToken, onShowToast }) {
       return;
     }
     try {
-      const res = await axios.post('http://localhost:5000/auth/verify-register', { email, otp, password });
+      const res = await axios.post(`${API_BASE_URL}/auth/verify-register`, { email, otp, password });
       const token = res.data.token;
       localStorage.setItem('token', token);
       setToken(token);
@@ -60,7 +61,7 @@ function Register({ setToken, onShowToast }) {
   };
 
   const handleGoogleSignIn = () => {
-    window.location.href = 'http://localhost:5000/auth/google';
+    window.location.href = `${API_BASE_URL}/auth/google`;
   };
 
   return (

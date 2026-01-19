@@ -1,4 +1,5 @@
 import React from 'react';
+import API_BASE_URL from '../config/api';
 
 function EntryView({ entry }) {
   return (
@@ -34,7 +35,7 @@ function EntryView({ entry }) {
                 }}
               >
                 <img 
-                  src={`http://localhost:5000${image.imageUrl}`}
+                  src={`${API_BASE_URL}${image.imageUrl}`}
                   alt="Entry image"
                   className="w-full h-full object-cover rounded shadow-md"
                 />

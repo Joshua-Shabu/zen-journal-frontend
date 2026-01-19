@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import API_BASE_URL from '../config/api';
 
 function JournalList({ token }) {
   console.log('JournalList received token:', token); // Debug log
@@ -13,7 +14,7 @@ function JournalList({ token }) {
   const fetchEntries = async () => {
     console.log('Fetching entries with token:', token); // Debug log
     try {
-      const res = await axios.get('http://localhost:5000/entries', {
+      const res = await axios.get(`${API_BASE_URL}/entries`, {
         headers: { Authorization: `Bearer ${token}` }
       });
       setEntries(res.data);
@@ -24,7 +25,7 @@ function JournalList({ token }) {
 
   const deleteEntry = async (id) => {
     try {
-      await axios.delete(`http://localhost:5000/entries/${id}`, {
+      await axios.delete(`${API_BASE_URL}/entries/${id}`, {
         headers: { Authorization: `Bearer ${token}` }
       });
       setEntries(entries.filter(e => e.id !== id));
@@ -77,7 +78,7 @@ function JournalList({ token }) {
                         }}
                       >
                         <img 
-                          src={`http://localhost:5000${image.imageUrl}`}
+                          src={`${API_BASE_URL}${image.imageUrl}`}
                           alt="Entry image"
                           className="w-full h-full object-cover rounded shadow-md"
                         />

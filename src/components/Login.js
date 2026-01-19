@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import API_BASE_URL from '../config/api';
 
 function Login({ setToken, onShowToast }) {
   const [email, setEmail] = useState('');
@@ -19,7 +20,7 @@ function Login({ setToken, onShowToast }) {
     
     try {
       console.log('Making API call to login...');
-      const res = await axios.post('http://localhost:5000/auth/login', { email, password });
+      const res = await axios.post(`${API_BASE_URL}/auth/login`, { email, password });
       console.log('API response:', res);
       localStorage.setItem('token', res.data.token);
       setToken(res.data.token);
@@ -42,7 +43,7 @@ function Login({ setToken, onShowToast }) {
   };
 
   const handleGoogleSignIn = () => {
-    window.location.href = 'http://localhost:5000/auth/google';
+    window.location.href = `${API_BASE_URL}/auth/google`;
   };
 
   return (
