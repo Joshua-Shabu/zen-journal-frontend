@@ -13,6 +13,7 @@ function JournalEntryForm({ token, onEntryAdded, onShowToast }) {
   const [color, setColor] = useState('#000000');
   const [showToolbar, setShowToolbar] = useState(false);
   const [showColorPicker, setShowColorPicker] = useState(false);
+  const [draggedImage, setDraggedImage] = useState(null);
   const [resizingImage, setResizingImage] = useState(null);
   const fileInputRef = useRef(null);
 

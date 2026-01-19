@@ -25,6 +25,14 @@ function App() {
     setToasts(prev => prev.filter(toast => toast.id !== id));
   };
 
+  const handleEntryAdded = () => {
+    // Refresh functionality can be added later if needed
+  };
+
+  const toggleMenu = () => {
+    setShowMenu(!showMenu);
+  };
+
   const handleLogout = () => {
     setToken(null);
     localStorage.removeItem('token');
