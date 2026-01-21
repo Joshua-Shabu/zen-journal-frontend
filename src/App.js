@@ -1,10 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import AuthTabs from './components/AuthTabs';
 import WelcomeView from './components/WelcomeView';
 import JournalEntryForm from './components/JournalEntryForm';
 import CalendarView from './components/CalendarView';
 import EntryView from './components/EntryView';
 import ToastContainer from './components/ToastContainer';
+import GoogleAuthCallback from './components/GoogleAuthCallback';
 
 function App() {
   const [token, setToken] = useState(localStorage.getItem('token'));
@@ -13,6 +14,41 @@ function App() {
   const [userEmail, setUserEmail] = useState('');
   const [selectedEntry, setSelectedEntry] = useState(null);
   const [toasts, setToasts] = useState([]);
+
+  // Handle Google OAuth callback
+  useEffect(() => {
+    const urlParams = new URLSearchParams(window.location.search);
+    const error = urlParams.get('error');
+    
+    if (error) {
+      // Handle OAuth errors
+      let errorMessage = 'Authentication failed';
+      switch (error) {
+        case 'google_auth_failed':
+          errorMessage = 'Google authentication failed. Please try again.';
+          break;
+        case 'google_token_exchange_failed':
+          errorMessage = 'Failed to complete Google sign-in. Please try again.';
+          break;
+        default:
+          errorMessage = 'Authentication error. Please try again.';
+      }
+      
+      // Clear the error from URL
+      window.history.replaceState({}, document.title, window.location.pathname);
+      
+      // Show error message and redirect to auth
+      setTimeout(() => {
+        setCurrentView('auth');
+        addToast(errorMessage, 'error');
+      }, 100);
+    }
+  }, []);
+
+  // Check if we're on the callback route
+  if (window.location.pathname === '/auth/callback') {
+    return <GoogleAuthCallback />;
+  }
 
   const addToast = (message, type = 'info') => {
     const id = Date.now() + Math.random();
