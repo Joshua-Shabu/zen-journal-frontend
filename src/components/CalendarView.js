@@ -6,10 +6,6 @@ function CalendarView({ token, onEntryClick }) {
   const [entries, setEntries] = useState([]);
   const [currentDate, setCurrentDate] = useState(new Date());
 
-  useEffect(() => {
-    fetchEntries();
-  }, [token, fetchEntries]);
-
   const fetchEntries = useCallback(async () => {
     try {
       const res = await axios.get(`${API_BASE_URL}/entries`, {
@@ -20,6 +16,10 @@ function CalendarView({ token, onEntryClick }) {
       console.error('Failed to fetch entries:', err);
     }
   }, [token]);
+
+  useEffect(() => {
+    fetchEntries();
+  }, [token, fetchEntries]);
 
   const getDaysInMonth = (date) => {
     return new Date(date.getFullYear(), date.getMonth() + 1, 0).getDate();
@@ -79,7 +79,6 @@ function CalendarView({ token, onEntryClick }) {
 
   const daysInMonth = getDaysInMonth(currentDate);
   const firstDay = getFirstDayOfMonth(currentDate);
-  const today = new Date();
 
   return (
     <div className="space-y-8">

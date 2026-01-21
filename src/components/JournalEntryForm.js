@@ -85,18 +85,12 @@ function JournalEntryForm({ token, onEntryAdded, onShowToast }) {
     const newImages = files.map(file => ({
       id: Date.now() + Math.random(),
       file,
-      url: URL.createObjectURL(file),
       x: 50,
       y: 50,
-      width: 200,
+      width: 150,
       height: 150
     }));
     setImages([...images, ...newImages]);
-  };
-
-  const handleImageDragStart = (e, imageId) => {
-    e.preventDefault();
-    setDraggedImage(imageId);
   };
 
   const handleImageDrag = (e) => {
